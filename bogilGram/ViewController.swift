@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     let addPhotoButton:UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(openImagePicker), for: .touchUpInside)
         return button
     }()
     
@@ -67,19 +68,73 @@ class ViewController: UIViewController {
         configureInputFields()
     }
     
+    @objc func openImagePicker() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        self.present(imagePickerController, animated: true, completion: nil)
+    }
+    
     @objc func handleSignUp() {
         guard let email = emailTextField.text, email.count > 0 else {return}
         guard let username = usernameTextField.text, username.count > 0 else {return}
         guard let password = passwordTextField.text, password.count > 0 else {return}
         
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print(error)
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error: Error?) in
+            
+            if let err = error {
+                print("Failed to create user:", err)
+                return
             }
-            else {
-                print("Sucessfully created user \(result?.user.uid ?? "")")
-            }
-        }
+            
+            print("Successfully created user:", user?.user.uid ?? "")
+            
+            guard let image = self.addPhotoButton.imageView?.image else { return }
+            guard let uploadData = UIImageJPEGRepresentation(image, 0.3) else { return }
+            
+            // Get the filename via random string
+            let filename = NSUUID().uuidString
+            
+            // Get the storage reference
+            let storageRef = Storage.storage().reference().child("profile_images").child(filename)
+            
+            // Upload image
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, err) in
+                
+                if let err = err {
+                    print("Failed to upload profile image:", err)
+                    return
+                }
+                
+                storageRef.downloadURL(completion: { (downloadURL, err) in
+                    if let err = err {
+                        print("Failed to fetch downloadURL:", err)
+                        return
+                    }
+                    
+                    guard let profileImageUrl = downloadURL?.absoluteString else { return }
+                    
+                    print("Successfully uploaded profile image:", profileImageUrl)
+                    
+                    guard let uid = user?.user.uid else { return }
+                    
+                    let dictionaryValues = ["username": username, "profileImageUrl": profileImageUrl]
+                    let values = [uid: dictionaryValues]
+                    
+                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err, ref) in
+                        
+                        if let err = err {
+                            print("Failed to save user info into db:", err)
+                            return
+                        }
+                        
+                        print("Successfully saved user info to db")
+                        
+                    })
+                })
+            })
+            
+        })
     }
     
     @objc func handleTextInputDidChange() {
@@ -95,8 +150,6 @@ class ViewController: UIViewController {
             signUpButton.isEnabled = false
             signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
         }
-        
-        
     }
     
     fileprivate func configureAddPhotoButton() {
@@ -113,6 +166,26 @@ class ViewController: UIViewController {
         view.addSubview(stackView)
         
         stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingRight: -40, paddingBottom: 200, width: 0, height: 200)
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let originalImageKey = UIImagePickerControllerOriginalImage
+        let editedImageKey = UIImagePickerControllerEditedImage
+        if let originalImage = info[originalImageKey] as? UIImage {
+            addPhotoButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        if let editedImage = info[editedImageKey] as? UIImage {
+            addPhotoButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        addPhotoButton.layer.cornerRadius = addPhotoButton.frame.width / 2
+        addPhotoButton.layer.masksToBounds = true
+        addPhotoButton.layer.borderColor = UIColor.black.cgColor
+        addPhotoButton.layer.borderWidth = 3.0
+        dismiss(animated: true, completion: nil)
     }
 }
 
