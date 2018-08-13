@@ -20,7 +20,8 @@
 		9436C3EF2121DB6D00720B18 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436C3EE2121DB6D00720B18 /* Extensions.swift */; };
 		9436C3F12121EA9000720B18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9436C3F02121EA9000720B18 /* GoogleService-Info.plist */; };
 		945264412122258C007A7C7D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945264402122258C007A7C7D /* TabBarController.swift */; };
-		945264432122263F007A7C7D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945264422122263F007A7C7D /* UserProfileController.swift */; };
+		94526445212239BE007A7C7D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94526444212239BE007A7C7D /* UserProfileController.swift */; };
+		9452644721223ED8007A7C7D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9452644621223ED8007A7C7D /* UserProfileHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,8 @@
 		9436C3EE2121DB6D00720B18 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9436C3F02121EA9000720B18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		945264402122258C007A7C7D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		945264422122263F007A7C7D /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		94526444212239BE007A7C7D /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		9452644621223ED8007A7C7D /* UserProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		BF57B05986293B97D7E0853C /* Pods_bogilGram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bogilGram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -145,11 +147,12 @@
 		9436C3BE2121CC4E00720B18 /* bogilGram */ = {
 			isa = PBXGroup;
 			children = (
+				9452644621223ED8007A7C7D /* UserProfileHeader.swift */,
 				9436C3ED2121DB6000720B18 /* Uitilities */,
 				9436C3BF2121CC4E00720B18 /* AppDelegate.swift */,
 				9436C3C12121CC4E00720B18 /* ViewController.swift */,
 				945264402122258C007A7C7D /* TabBarController.swift */,
-				945264422122263F007A7C7D /* UserProfileController.swift */,
+				94526444212239BE007A7C7D /* UserProfileController.swift */,
 				9436C3C32121CC4E00720B18 /* Main.storyboard */,
 				9436C3C62121CC5000720B18 /* Assets.xcassets */,
 				9436C3C82121CC5000720B18 /* LaunchScreen.storyboard */,
@@ -405,8 +408,9 @@
 				9436C3C22121CC4E00720B18 /* ViewController.swift in Sources */,
 				945264412122258C007A7C7D /* TabBarController.swift in Sources */,
 				9436C3EF2121DB6D00720B18 /* Extensions.swift in Sources */,
-				945264432122263F007A7C7D /* UserProfileController.swift in Sources */,
+				94526445212239BE007A7C7D /* UserProfileController.swift in Sources */,
 				9436C3C02121CC4E00720B18 /* AppDelegate.swift in Sources */,
+				9452644721223ED8007A7C7D /* UserProfileHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
