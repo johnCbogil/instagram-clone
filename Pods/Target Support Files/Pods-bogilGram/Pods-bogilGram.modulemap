@@ -1,0 +1,6 @@
+framework module Pods_bogilGram {
+  umbrella header "Pods-bogilGram-umbrella.h"
+
+  export *
+  module * { export * }
+}

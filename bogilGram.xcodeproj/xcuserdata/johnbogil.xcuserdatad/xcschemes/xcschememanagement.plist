@@ -7,7 +7,25 @@
 		<key>bogilGram.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>6</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>9436C3BB2121CC4E00720B18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9436C3CF2121CC5000720B18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9436C3DA2121CC5000720B18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
