@@ -155,7 +155,7 @@ class ViewController: UIViewController {
     fileprivate func configureAddPhotoButton() {
         view.addSubview(addPhotoButton)
         addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        addPhotoButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: 140, height: 140)
+        addPhotoButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
     }
     
     fileprivate func configureInputFields() {
@@ -165,7 +165,7 @@ class ViewController: UIViewController {
         stackView.spacing = 10
         view.addSubview(stackView)
         
-        stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingRight: -40, paddingBottom: 200, width: 0, height: 200)
+        stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingBottom: 200, paddingRight: -40, width: 0, height: 200)
     }
 }
 
@@ -191,34 +191,32 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 
 extension UIView {
     
-    func anchor(top:NSLayoutYAxisAnchor?, left:NSLayoutXAxisAnchor?, bottom:NSLayoutYAxisAnchor?, right:NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft:CGFloat, paddingRight:CGFloat, paddingBottom:CGFloat, width: CGFloat, height: CGFloat) {
+    func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
         
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
+        translatesAutoresizingMaskIntoConstraints = false
         
         if let top = top {
             self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-        }
-        
-        if let bottom = bottom {
-            self.bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
-        }
-        
-        if let right = right {
-            self.rightAnchor.constraint(equalTo: right, constant: paddingRight).isActive = true
-            
         }
         
         if let left = left {
             self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
         }
         
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
+        }
+        
+        if let right = right {
+            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+        }
+        
         if width != 0 {
-            self.widthAnchor.constraint(equalToConstant: width).isActive = true
+            widthAnchor.constraint(equalToConstant: width).isActive = true
         }
         
         if height != 0 {
-            self.heightAnchor.constraint(equalToConstant: height).isActive = true
+            heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
 }

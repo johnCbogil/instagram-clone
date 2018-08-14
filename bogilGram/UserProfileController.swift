@@ -1,44 +1,18 @@
-//
-//  UserProfileController.swift
-//  InstagramFirebase
-//
-//  Created by Brian Voong on 3/22/17.
-//  Copyright © 2017 Lets Build That App. All rights reserved.
-//
-
 import UIKit
 import Firebase
 
-class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class UserProfileController: UICollectionViewController {
     
+    var user: User?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.backgroundColor = .white
-        
-        navigationItem.title = Auth.auth().currentUser?.uid
-        
         fetchUser()
-        
-        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
+        collectionView?.backgroundColor = .white
+        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileHeader.identifier)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
-        
-        header.user = self.user
-        
-        //not correct
-        //header.addSubview(UIImageView())
-        
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
-    }
-    
-    var user: User?
     fileprivate func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -58,6 +32,18 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
 }
 
+extension UserProfileController: UICollectionViewDelegateFlowLayout {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UserProfileHeader.identifier, for: indexPath) as! UserProfileHeader
+        header.user = self.user
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 200)
+    }
+}
+
 struct User {
     let username: String
     let profileImageUrl: String
@@ -67,8 +53,3 @@ struct User {
         self.profileImageUrl = dictionary["profileImageUrl"]  as? String ?? ""
     }
 }
-
-
-
-
-
