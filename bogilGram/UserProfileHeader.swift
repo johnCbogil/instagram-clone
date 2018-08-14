@@ -47,7 +47,10 @@ class UserProfileHeader: UICollectionViewCell {
     
     let postsLabel: UILabel = {
         let label = UILabel()
-        label.text = "11 posts"
+        
+        let attributedText = NSMutableAttributedString(string: "0\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -55,7 +58,9 @@ class UserProfileHeader: UICollectionViewCell {
     
     let followersLabel: UILabel = {
         let label = UILabel()
-        label.text = "11 posts"
+        let attributedText = NSMutableAttributedString(string: "0\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -63,7 +68,9 @@ class UserProfileHeader: UICollectionViewCell {
     
     let followingLabel: UILabel = {
         let label = UILabel()
-        label.text = "11 posts"
+        let attributedText = NSMutableAttributedString(string: "0\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "following", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -77,6 +84,8 @@ class UserProfileHeader: UICollectionViewCell {
         button.setTitleColor(.black, for: .normal)
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 3
+        
         return button
     }()
     
@@ -98,15 +107,27 @@ class UserProfileHeader: UICollectionViewCell {
         setupUserStatsView()
         
         addSubview(editProfileButton)
-        editProfileButton.anchor(top: postsLabel.bottomAnchor, left: postsLabel.leftAnchor, bottom: nil, right: followingLabel.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 34)
+        editProfileButton.anchor(top: postsLabel.bottomAnchor, left: postsLabel.leftAnchor, bottom: nil, right: followingLabel.rightAnchor, paddingTop: 2, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 34)
     }
     
     fileprivate func setupBottomGrid() {
+        
+        let topDividerView = UIView()
+        topDividerView.backgroundColor = UIColor.lightGray
+        
+        let bottomDividerView = UIView()
+        bottomDividerView.backgroundColor = UIColor.lightGray
+        
+        
         let stackView = UIStackView(arrangedSubviews: [gridButton,listButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         self.addSubview(stackView)
+        self.addSubview(topDividerView)
+        self.addSubview(bottomDividerView)
         stackView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        topDividerView.anchor(top: stackView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
+        bottomDividerView.anchor(top: stackView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
     }
     
     fileprivate func setupUserStatsView() {
