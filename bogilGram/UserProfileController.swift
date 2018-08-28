@@ -10,9 +10,34 @@ class UserProfileController: UICollectionViewController {
         super.viewDidLoad()
         
         fetchUser()
+        setupLogOutButton()
+        setupCollectionView()
+    }
+    
+    fileprivate func setupLogOutButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
+    }
+    
+    fileprivate func setupCollectionView() {
         collectionView?.backgroundColor = .white
         collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileHeader.identifier)
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+    }
+    
+    @objc func handleLogOut() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let logoutAction = UIAlertAction.init(title: "Log Out", style: .destructive) { _ in
+            do {
+                try Auth.auth().signOut()
+            } catch let error {
+                print(error)
+            }
+            
+        }
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     fileprivate func fetchUser() {

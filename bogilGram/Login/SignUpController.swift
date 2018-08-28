@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class SignUpController: UIViewController {
     
     let addPhotoButton:UIButton = {
         let button = UIButton(type: .system)
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.font = .systemFont(ofSize: 14)
         textField.addTarget(self, action: #selector(handleTextInputDidChange), for: .editingChanged)
-
         return textField
     }()
     
@@ -61,9 +60,9 @@ class ViewController: UIViewController {
         return button
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureAddPhotoButton()
         configureInputFields()
     }
@@ -165,11 +164,11 @@ class ViewController: UIViewController {
         stackView.spacing = 10
         view.addSubview(stackView)
         
-        stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingBottom: 200, paddingRight: -40, width: 0, height: 200)
+        stackView.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 200)
     }
 }
 
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension SignUpController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let originalImageKey = UIImagePickerControllerOriginalImage
