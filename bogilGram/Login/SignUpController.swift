@@ -60,11 +60,27 @@ class SignUpController: UIViewController {
         return button
     }()
     
+    let alreadyHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        let signUpTextPartOne = NSMutableAttributedString(string: "Already have account?  ", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor:UIColor.lightGray])
+        let signUpTextPartTwo = NSMutableAttributedString(string: "Sign in", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor:UIColor.rgb(red: 17, green: 154, blue: 237)])
+        signUpTextPartOne.append(signUpTextPartTwo)
+        button.setAttributedTitle(signUpTextPartOne, for: .normal)
+        button.addTarget(self, action: #selector(handleAlreadyHaveAccount), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(alreadyHaveAccountButton)
+        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         view.backgroundColor = .white
         configureAddPhotoButton()
         configureInputFields()
+    }
+    
+    @objc func handleAlreadyHaveAccount() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func openImagePicker() {
