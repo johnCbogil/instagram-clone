@@ -157,8 +157,8 @@ class SignUpController: UIViewController {
     @objc func handleTextInputDidChange() {
         
         let isFormValid = emailTextField.text?.count ?? 0 > 0 &&
-        usernameTextField.text?.count ?? 0 > 0 &&
-        passwordTextField.text?.count ?? 0 > 0
+            usernameTextField.text?.count ?? 0 > 0 &&
+            passwordTextField.text?.count ?? 0 > 0
         
         if isFormValid {
             signUpButton.isEnabled = true
