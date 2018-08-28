@@ -29,6 +29,9 @@ class UserProfileController: UICollectionViewController {
         let logoutAction = UIAlertAction.init(title: "Log Out", style: .destructive) { _ in
             do {
                 try Auth.auth().signOut()
+                let loginVC = LoginViewController()
+                let navigationController = UINavigationController(rootViewController: loginVC)
+                self.present(navigationController, animated: true, completion: nil)
             } catch let error {
                 print(error)
             }
